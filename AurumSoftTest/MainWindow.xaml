@@ -1,0 +1,55 @@
+﻿<Window x:Class="AurumSoftTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Импорт скважин" Height="720" Width="1080">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.6*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Загрузить CSV" Width="150" Click="OnLoadClick" Padding="10,6" Margin="0,0,8,0"/>    
+            <Button Content="Экспорт JSON" Width="150" Click="OnExportClick" Padding="10,6" Margin="0,0,8,0"/>
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" Text="{Binding StatusText}" />
+        </StackPanel>
+
+        <GroupBox Grid.Row="1" Header="Сводка по скважинам" Margin="0,12,0,8">
+            <DataGrid ItemsSource="{Binding Summaries}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="All"
+                      Margin="4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Cкважина" Binding="{Binding WellId}" Width="*" />
+                    <DataGridTextColumn Header="X" Binding="{Binding X, StringFormat={}{0:F2}}" Width="100" />
+                    <DataGridTextColumn Header="Y" Binding="{Binding Y, StringFormat={}{0:F2}}" Width="100" />
+                    <DataGridTextColumn Header="Общая глубина" Binding="{Binding TotalDepth, StringFormat={}{0:F2}}" Width="150" />
+                    <DataGridTextColumn Header="Интервалы" Binding="{Binding IntervalCount}" Width="100" />
+                    <DataGridTextColumn Header="Средняя пористость" Binding="{Binding WeightedAvgPorosity, StringFormat={}{0:F3}}" Width="170" />
+                    <DataGridTextColumn Header="Доминирующая порода" Binding="{Binding DominantRock}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Ошибки валидации" Margin="0,8,0,0">
+            <DataGrid ItemsSource="{Binding Errors}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="All"
+                      Margin="4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Строка" Binding="{Binding LineNumber}" Width="80" />
+                    <DataGridTextColumn Header="Cкважина" Binding="{Binding WellId}" Width="120" />
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Message}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>

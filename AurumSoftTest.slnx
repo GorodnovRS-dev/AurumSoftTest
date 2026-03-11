@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AurumSoftTest.Tests/AurumSoftTest.Tests.csproj" />
+  <Project Path="AurumSoftTest/AurumSoftTest.csproj" />
+</Solution>
